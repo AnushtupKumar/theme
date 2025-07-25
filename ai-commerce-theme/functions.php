@@ -132,6 +132,8 @@ require_once AI_COMMERCE_INC . '/ai/class-personalization.php';
 require_once AI_COMMERCE_INC . '/ai/class-cart-recovery.php';
 require_once AI_COMMERCE_INC . '/ai/class-chatbot.php';
 require_once AI_COMMERCE_INC . '/ai/class-visual-search.php';
+require_once AI_COMMERCE_INC . '/ai/class-user-segmentation.php';
+require_once AI_COMMERCE_INC . '/ai/class-predictive-search.php';
 require_once AI_COMMERCE_INC . '/woocommerce/woocommerce-functions.php';
 require_once AI_COMMERCE_INC . '/api/class-rest-api.php';
 require_once AI_COMMERCE_INC . '/class-theme-optimizer.php';

@@ -117,13 +117,24 @@ add_action('admin_enqueue_scripts', 'ai_woo_admin_scripts');
 /**
  * Include Required Files
  */
-require_once AI_WOO_THEME_PATH . '/inc/customizer.php';
-require_once AI_WOO_THEME_PATH . '/inc/ai-integration.php';
-require_once AI_WOO_THEME_PATH . '/inc/woocommerce-functions.php';
-require_once AI_WOO_THEME_PATH . '/inc/cart-recovery.php';
-require_once AI_WOO_THEME_PATH . '/inc/admin-panel.php';
-require_once AI_WOO_THEME_PATH . '/inc/seo-optimization.php';
-require_once AI_WOO_THEME_PATH . '/inc/performance.php';
+// List of PHP files to include from the /inc directory.
+$ai_woo_includes = array(
+    'customizer.php',
+    'ai-integration.php',
+    'woocommerce-functions.php',
+    'cart-recovery.php',
+    'admin-panel.php',    // optional – only loaded if present.
+    'seo-optimization.php', // optional – only loaded if present.
+    'performance.php',      // optional – only loaded if present.
+);
+
+// Require each file if it exists to avoid fatal errors during theme load.
+foreach ($ai_woo_includes as $file) {
+    $filepath = AI_WOO_THEME_PATH . '/inc/' . $file;
+    if (file_exists($filepath)) {
+        require_once $filepath;
+    }
+}
 
 /**
  * Widget Areas

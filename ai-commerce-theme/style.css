@@ -1,0 +1,485 @@
+/*
+Theme Name: AI Commerce Theme
+Theme URI: https://example.com/ai-commerce-theme
+Author: AI Commerce Team
+Author URI: https://example.com
+Description: A modern, AI-powered WooCommerce theme with personalization, cart abandonment recovery, and lightning-fast SPA architecture. Fully customizable with SEO optimization.
+Version: 1.0.0
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: ai-commerce
+Tags: e-commerce, woocommerce, ai, spa, customizable, seo-friendly, responsive, modern
+Requires at least: 5.8
+Tested up to: 6.4
+Requires PHP: 7.4
+WooCommerce tested up to: 8.5
+*/
+
+/* Reset and Base Styles */
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #7c3aed;
+    --accent-color: #f59e0b;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --border-color: #e5e7eb;
+    --success-color: #10b981;
+    --error-color: #ef4444;
+    --warning-color: #f59e0b;
+    --info-color: #3b82f6;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --transition-fast: 150ms ease-in-out;
+    --transition-normal: 300ms ease-in-out;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container */
+.ai-container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Loading States */
+.ai-loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--border-color);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: ai-spin 1s ease-in-out infinite;
+}
+
+@keyframes ai-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Skeleton Loading */
+.ai-skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: ai-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes ai-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* SPA App Container */
+#ai-commerce-app {
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Responsive Grid System */
+.ai-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.ai-grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.ai-grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ai-grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ai-grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+@media (max-width: 768px) {
+    .ai-grid-cols-2,
+    .ai-grid-cols-3,
+    .ai-grid-cols-4 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .ai-grid-cols-3,
+    .ai-grid-cols-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Utility Classes */
+.ai-hidden { display: none !important; }
+.ai-flex { display: flex; }
+.ai-flex-center { display: flex; align-items: center; justify-content: center; }
+.ai-text-center { text-align: center; }
+.ai-mt-1 { margin-top: 0.5rem; }
+.ai-mt-2 { margin-top: 1rem; }
+.ai-mt-3 { margin-top: 1.5rem; }
+.ai-mt-4 { margin-top: 2rem; }
+.ai-mb-1 { margin-bottom: 0.5rem; }
+.ai-mb-2 { margin-bottom: 1rem; }
+.ai-mb-3 { margin-bottom: 1.5rem; }
+.ai-mb-4 { margin-bottom: 2rem; }
+.ai-p-1 { padding: 0.5rem; }
+.ai-p-2 { padding: 1rem; }
+.ai-p-3 { padding: 1.5rem; }
+.ai-p-4 { padding: 2rem; }
+
+/* Button Styles */
+.ai-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    outline: none;
+}
+
+.ai-btn:focus {
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.ai-btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.ai-btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.ai-btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.ai-btn-secondary:hover {
+    background-color: #6d28d9;
+}
+
+.ai-btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.ai-btn-outline:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Card Component */
+.ai-card {
+    background-color: var(--bg-primary);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.ai-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.ai-card-body {
+    padding: 1.5rem;
+}
+
+/* Form Elements */
+.ai-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.ai-form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.ai-form-input,
+.ai-form-select,
+.ai-form-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    background-color: var(--bg-primary);
+    transition: border-color var(--transition-fast);
+}
+
+.ai-form-input:focus,
+.ai-form-select:focus,
+.ai-form-textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* AI Personalization Indicator */
+.ai-personalized {
+    position: relative;
+}
+
+.ai-personalized::after {
+    content: '✨';
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    font-size: 0.75rem;
+    animation: ai-sparkle 2s ease-in-out infinite;
+}
+
+@keyframes ai-sparkle {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Product Grid */
+.ai-product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.ai-product-card {
+    position: relative;
+    background: var(--bg-primary);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+}
+
+.ai-product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.ai-product-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.ai-product-info {
+    padding: 1.5rem;
+}
+
+.ai-product-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.ai-product-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+/* Cart Abandonment Recovery Modal */
+.ai-cart-recovery {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    max-width: 400px;
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-lg);
+    padding: 2rem;
+    z-index: 1000;
+    animation: ai-slide-up 0.5s ease-out;
+}
+
+@keyframes ai-slide-up {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* AI Chat Widget */
+.ai-chat-widget {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 999;
+}
+
+.ai-chat-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-normal);
+}
+
+.ai-chat-button:hover {
+    transform: scale(1.1);
+}
+
+/* Header Styles */
+.ai-header {
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.ai-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+.ai-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.ai-nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.ai-nav-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+}
+
+.ai-nav-link:hover {
+    color: var(--primary-color);
+}
+
+/* Mobile Menu */
+.ai-mobile-menu-toggle {
+    display: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .ai-mobile-menu-toggle {
+        display: block;
+    }
+    
+    .ai-nav {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: var(--bg-primary);
+        flex-direction: column;
+        padding: 2rem;
+        transition: left var(--transition-normal);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .ai-nav.active {
+        left: 0;
+    }
+}
+
+/* Footer */
+.ai-footer {
+    background: var(--bg-secondary);
+    padding: 3rem 0 2rem;
+    margin-top: 4rem;
+}
+
+.ai-footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.ai-footer-section h3 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.ai-footer-section ul {
+    list-style: none;
+}
+
+.ai-footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.ai-footer-section a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.ai-footer-section a:hover {
+    color: var(--primary-color);
+}
+
+/* Accessibility */
+.ai-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Print Styles */
+@media print {
+    .ai-header,
+    .ai-footer,
+    .ai-chat-widget,
+    .ai-cart-recovery {
+        display: none !important;
+    }
+}

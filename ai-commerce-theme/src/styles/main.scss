@@ -1,0 +1,370 @@
+// AI Commerce Theme - Main Styles
+// ================================
+
+// Variables
+@import 'variables';
+
+// Base
+@import 'base/reset';
+@import 'base/typography';
+@import 'base/utilities';
+
+// Components
+@import 'components/buttons';
+@import 'components/cards';
+@import 'components/forms';
+@import 'components/modals';
+@import 'components/navigation';
+@import 'components/products';
+@import 'components/chat';
+@import 'components/loader';
+
+// Layout
+@import 'layout/header';
+@import 'layout/footer';
+@import 'layout/sidebar';
+@import 'layout/grid';
+
+// Pages
+@import 'pages/home';
+@import 'pages/shop';
+@import 'pages/product';
+@import 'pages/cart';
+@import 'pages/checkout';
+@import 'pages/account';
+
+// Vendors
+@import 'vendors/swiper';
+
+// AI Commerce Specific Styles
+.ai-commerce-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// AI Recommendations Section
+.ai-recommendations {
+  padding: 3rem 0;
+  background-color: var(--bg-secondary);
+  
+  &__header {
+    text-align: center;
+    margin-bottom: 2rem;
+    
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      
+      .ai-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.875rem;
+        margin-left: 0.5rem;
+        
+        svg {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+    }
+    
+    p {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+    }
+  }
+  
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+  
+  &__loading {
+    display: flex;
+    justify-content: center;
+    padding: 4rem 0;
+  }
+}
+
+// AI Chat Window Styles
+.ai-chat-window {
+  position: fixed;
+  bottom: 5rem;
+  right: 2rem;
+  width: 380px;
+  max-width: calc(100vw - 4rem);
+  height: 500px;
+  max-height: calc(100vh - 10rem);
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  
+  @media (max-width: 768px) {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  
+  .ai-chat-header {
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 1rem 1rem 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    h4 {
+      margin: 0;
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+    
+    button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.5rem;
+      transition: background-color 0.2s;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+  
+  .ai-chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 3px;
+    }
+  }
+  
+  .ai-chat-message {
+    display: flex;
+    gap: 0.75rem;
+    animation: fadeInUp 0.3s ease-out;
+    
+    &.ai-chat-user {
+      flex-direction: row-reverse;
+      
+      p {
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 1rem 1rem 0 1rem;
+      }
+    }
+    
+    &.ai-chat-bot {
+      p {
+        background-color: var(--bg-secondary);
+        color: var(--text-primary);
+        border-radius: 1rem 1rem 1rem 0;
+      }
+    }
+    
+    p {
+      margin: 0;
+      padding: 0.75rem 1rem;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+  }
+  
+  .ai-chat-input-form {
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 0.5rem;
+    
+    .ai-chat-input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 2rem;
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.2s;
+      
+      &:focus {
+        border-color: var(--primary-color);
+      }
+    }
+    
+    .ai-chat-send {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+      
+      &:hover {
+        transform: scale(1.05);
+        background-color: darken(var(--primary-color), 10%);
+      }
+      
+      svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+  }
+}
+
+// Cart Recovery Modal Styles
+.ai-cart-recovery {
+  &-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background-color: var(--bg-secondary);
+    }
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+  
+  p {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    
+    strong {
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+  }
+  
+  &-code {
+    background-color: var(--bg-secondary);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    
+    span {
+      display: block;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+    
+    strong {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      letter-spacing: 0.1em;
+    }
+  }
+}
+
+// Animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+// Responsive utilities
+@media (max-width: 1024px) {
+  .ai-hide-tablet {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .ai-hide-mobile {
+    display: none !important;
+  }
+  
+  .ai-container {
+    padding: 0 1rem;
+  }
+}
+
+// Print styles
+@media print {
+  .ai-no-print {
+    display: none !important;
+  }
+}
